@@ -15,24 +15,6 @@ namespace Supermarket.API
     {
         public static void Main(string[] args)
         {
-
-            Log.Logger = new LoggerConfiguration()
-             .MinimumLevel.Information()
-             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-             .Enrich.FromLogContext()
-             .WriteTo.MSSqlServer(connectionString: "Data Source=ERIC-PC;Initial Catalog=Supermarket;Integrated Security=SSPI;trusted_connection=true",
-                    tableName: "Log")
-             .CreateLogger();
-
-            //var configuration = new ConfigurationBuilder()
-            //                .AddJsonFile("appsettings.json")
-            //                .Build();
-
-            //Log.Logger = new LoggerConfiguration()
-            //    .ReadFrom.Configuration(configuration)
-            //    .CreateLogger();
-
-
             var host = CreateHostBuilder(args).Build();
             
             using (var scope = host.Services.CreateScope())

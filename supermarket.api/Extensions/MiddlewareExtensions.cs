@@ -3,7 +3,6 @@ using Domain.Persistence.Repositories;
 using Domain.Repositories;
 using Domain.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Extensions
@@ -39,9 +38,10 @@ namespace Extensions
 
         public static IServiceCollection AddScopeCustom(this IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => {
-                options.UseInMemoryDatabase("Supermarket.API-in-memory");
-            });
+
+            //services.AddDbContext<AppDbContext>(options => {
+            //    options.UseInMemoryDatabase("Supermarket.API-in-memory");
+            //});
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();

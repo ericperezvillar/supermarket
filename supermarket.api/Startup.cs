@@ -2,14 +2,17 @@ using System;
 using System.Diagnostics;
 using AutoMapper;
 using Controllers.Config;
+using Domain.Persistence.Contexts;
 using Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Events;
 
 namespace Supermarket.API
 {
@@ -30,6 +33,12 @@ namespace Supermarket.API
                 // Adds a custom error response factory when ModelState is invalid
                 options.InvalidModelStateResponseFactory = InvalidModelStateResponseFactory.ProduceErrorResponse;
             });
+
+            services.AddDbContext<AppDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("dbSupermarket"));
+            });
+
+            InitialiseLogger();
 
             services.AddScopeCustom();
             services.AddAutoMapper(typeof(Startup));
@@ -71,6 +80,25 @@ namespace Supermarket.API
             //loggerFactory.AddProvider("Logs/myapp-{Date}.txt");
             app.UseCustomSwagger();
             
+        }
+
+        private void InitialiseLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+             .MinimumLevel.Information()
+             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+             .Enrich.FromLogContext()
+             .WriteTo.MSSqlServer(connectionString: Configuration.GetConnectionString("dbLog"),
+                    tableName: "Log")
+             .CreateLogger();
+
+            //var configuration = new ConfigurationBuilder()
+            //                .AddJsonFile("appsettings.json")
+            //                .Build();
+
+            //Log.Logger = new LoggerConfiguration()
+            //    .ReadFrom.Configuration(configuration)
+            //    .CreateLogger();
         }
     }
 }

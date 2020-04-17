@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Supermarket.API", "supermar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Supermarket.API.Test", "supermarket.api.Test\Supermarket.API.Test.csproj", "{4685CD1C-69A8-4719-9CC3-4D6D850160B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supermarket.API.IntegrationTest", "Supermarket.API.IntegrationTest\Supermarket.API.IntegrationTest.csproj", "{593A6F94-75B3-4F97-BD67-C9C4B0066992}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4685CD1C-69A8-4719-9CC3-4D6D850160B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4685CD1C-69A8-4719-9CC3-4D6D850160B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4685CD1C-69A8-4719-9CC3-4D6D850160B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{593A6F94-75B3-4F97-BD67-C9C4B0066992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{593A6F94-75B3-4F97-BD67-C9C4B0066992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{593A6F94-75B3-4F97-BD67-C9C4B0066992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{593A6F94-75B3-4F97-BD67-C9C4B0066992}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
