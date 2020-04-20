@@ -14,8 +14,10 @@ namespace Controllers
     [Route("api/[controller]")]
     public class CategoriesController : ControllerBase
     {
+        #region Properties Injection
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
+        #endregion
 
         public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
@@ -23,6 +25,7 @@ namespace Controllers
             _mapper = mapper;
         }
 
+        #region GetAllCategories
         /// <summary>
         /// Category list
         /// </summary>
@@ -32,7 +35,7 @@ namespace Controllers
         /// <returns></returns>
         /// <response code="200"></response>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Category>),200)]
+        [ProducesResponseType(typeof(IEnumerable<Category>), 200)]
         public async Task<IActionResult> GetAllAsync()
         {
             try
@@ -48,7 +51,9 @@ namespace Controllers
                 return BadRequest(ex.Message);
             }
         }
+        #endregion
 
+        #region PostCategory
         /// <summary>
         /// Create a new category
         /// </summary>
@@ -62,7 +67,7 @@ namespace Controllers
             try
             {
                 Log.Logger.Information("Add new category {@resource} was executed", resource);
-                
+
                 var category = _mapper.Map<SaveCategoryResource, Category>(resource);
                 var result = await _categoryService.SaveAsync(category);
 
@@ -83,7 +88,9 @@ namespace Controllers
                 return BadRequest(ex.Message);
             }
         }
+        #endregion
 
+        #region PutCategory
         /// <summary>
         /// Update category details
         /// </summary>
@@ -119,7 +126,9 @@ namespace Controllers
                 return BadRequest(ex.Message);
             }
         }
+        #endregion
 
+        #region DeleteCategory
         /// <summary>
         /// Delete a category by Id
         /// </summary>
@@ -153,5 +162,7 @@ namespace Controllers
                 return BadRequest(ex.Message);
             }
         }
+        #endregion
+
     }
 }

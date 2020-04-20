@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using Controllers;
-using Domain.Models;
+﻿using Domain.Models;
 using Domain.Models.Communication;
 using Domain.Repositories;
 using Domain.Services;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Resources;
 using System.Collections.Generic;
 using Xunit;
 
