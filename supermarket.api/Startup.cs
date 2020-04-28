@@ -1,9 +1,11 @@
 using System;
 using System.Diagnostics;
+using System.Text;
 using AutoMapper;
 using Controllers.Config;
 using Domain.Persistence.Contexts;
 using Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
 
@@ -33,6 +36,8 @@ namespace Supermarket.API
                 // Adds a custom error response factory when ModelState is invalid
                 options.InvalidModelStateResponseFactory = InvalidModelStateResponseFactory.ProduceErrorResponse;
             });
+
+            services.AddJwtAuthentication(Configuration);
 
             services.AddDbContext<AppDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("dbSupermarket"));
@@ -69,6 +74,13 @@ namespace Supermarket.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(option => option
+              .AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
